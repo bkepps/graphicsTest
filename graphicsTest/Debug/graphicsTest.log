@@ -1,0 +1,7 @@
+﻿  Main.cpp
+C:\Users\bensk\source\repos\graphicsTest\graphicsTest\Main.cpp(26,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\bensk\source\repos\graphicsTest\graphicsTest\Main.cpp(30,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\bensk\source\repos\graphicsTest\graphicsTest\Main.cpp(54,88): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\bensk\source\repos\graphicsTest\graphicsTest\Main.cpp(121,118): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\bensk\source\repos\graphicsTest\graphicsTest\Main.cpp(73,6): warning C4101: 'randcalc': unreferenced local variable
+  graphicsTest.vcxproj -> C:\Users\bensk\source\repos\graphicsTest\Debug\graphicsTest.exe
