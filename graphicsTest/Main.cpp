@@ -1,20 +1,6 @@
-#include "SDL.h"
+#include "MainHead.h"
 #include "Cleanup.h"
 #include "FilePath.h"
-#include "SDL_ttf.h"
-#include "SerialPort.hpp"
-
-/*
-struct with all key elements of a slide selector
-*/
-typedef struct Slider{
-	Uint8 position;
-	Uint8 numberOfPositions;
-	Uint16 spaceBetweenPositions;
-	SDL_Rect slideRailRectangle;			//
-	SDL_Rect sliderArrowRectangle;			//
-	bool move;
-} Slider;
 
 int updateGraph(SDL_Renderer *ren, SDL_Texture *grph, Uint32* width, Uint32* height, Uint32* ctrlWidth) {
 	SDL_Rect GraphWinSize;					//set size of scope screen
@@ -33,32 +19,6 @@ int updateGraph(SDL_Renderer *ren, SDL_Texture *grph, Uint32* width, Uint32* hei
 									//render scope screen
 	SDL_RenderCopy(ren, grph, NULL, &GraphWinSize);
 	
-
-	return 0;
-}
-
-int SliderMoveWithMouse(SDL_Point mousePos, Slider* slide) {
-	int randcalc;
-
-	randcalc = (mousePos.y - slide->slideRailRectangle.y) / slide->spaceBetweenPositions;
-	if (randcalc >= 0 && randcalc < slide->numberOfPositions) {
-		slide->position = randcalc;
-	}
-	else if (randcalc >= slide->numberOfPositions) {
-		slide->position = slide->numberOfPositions - 1;
-	}
-	else if (randcalc < 0) {
-		slide->position = 0;
-	}
-	/* set position of arrow on slider */
-	slide->sliderArrowRectangle.y = 50 + (slide->spaceBetweenPositions * slide->position) - (.5 * slide->sliderArrowRectangle.h);
-	return 0;
-}
-
-int RenderSlider(SDL_Renderer *ren, SDL_Texture *arrow, SDL_Texture *slider, Slider* slide) {
-	
-	SDL_RenderCopy(ren, slider, NULL, &(slide->slideRailRectangle));
-	SDL_RenderCopy(ren, arrow, NULL, &(slide->sliderArrowRectangle));
 
 	return 0;
 }
@@ -154,7 +114,7 @@ int main(int argc, char* argv[])
 					SDL_GetMouseState(&mousePos.x, &mousePos.y);
 					if (timeScaleSelect->move) {
 						timeScaleSelect->move = false;
-						SliderMoveWithMouse(mousePos, timeScaleSelect);
+						Slider_MoveWithMouse(mousePos, timeScaleSelect);
 					}
 						
 				}
@@ -163,13 +123,13 @@ int main(int argc, char* argv[])
 			case SDL_MOUSEMOTION:
 				mousePos.y = event.motion.y;
 				if (timeScaleSelect->move)
-					SliderMoveWithMouse(mousePos, timeScaleSelect);
+					Slider_MoveWithMouse(mousePos, timeScaleSelect);
 				break;
 			}
 		}
 		SDL_RenderClear(ren);
 		updateGraph(ren, grph, width, height, ctrlWidth);
-		RenderSlider(ren, sliderArrow, sliderRail, timeScaleSelect);
+		Slider_Render(ren, sliderArrow, sliderRail, timeScaleSelect);
 		SDL_RenderPresent(ren);
 	}
 	cleanup(ren, win);
