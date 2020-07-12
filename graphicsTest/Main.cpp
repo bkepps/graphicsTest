@@ -1,6 +1,5 @@
 #include "MainHead.h"
 #include "Cleanup.h"
-#include "FilePath.h"
 
 int updateGraph(SDL_Renderer *ren, SDL_Texture *grph, Uint32* width, Uint32* height, Uint32* ctrlWidth) {
 	SDL_Rect GraphWinSize;					//set size of scope screen
@@ -31,6 +30,11 @@ int main(int argc, char* argv[])
 	Uint32* ctrlWidth = new Uint32(300);
 	bool* quit = new bool (false);
 	int randcalc;
+	char* basePath = SDL_GetBasePath();		//get file path for .exe
+
+
+	const char* returnedFilePath = NULL;
+
 
 	int* tSlidepos = new int (0);
 	int tSlidenop = 15;
@@ -46,19 +50,22 @@ int main(int argc, char* argv[])
 	SDL_Window *win = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, *width, *height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	Uint32* windowID = new Uint32 (SDL_GetWindowID(win));
+		
+	returnedFilePath = BitsNBobs_append(basePath, "Resources\\OscopeGraph.bmp");//load scope background &
+	SDL_Surface *grphsurf = SDL_LoadBMP(returnedFilePath);						//create texture from it
+	free((void*)returnedFilePath);
+	SDL_Texture *grph = SDL_CreateTextureFromSurface(ren, grphsurf);			//
+	SDL_FreeSurface(grphsurf);													//
 
-	std::string imagePath = getResourcePath() + "\\OscopeGraph.bmp";		//load scope background &
-	SDL_Surface *grphsurf = SDL_LoadBMP(imagePath.c_str());					//create texture from it
-	SDL_Texture *grph = SDL_CreateTextureFromSurface(ren, grphsurf);		//
-	SDL_FreeSurface(grphsurf);												//
-
-	imagePath = getResourcePath() + "\\SliderArrow.bmp";							//load arrow for sliders to texture
-	SDL_Surface *sliderArrowsurf = SDL_LoadBMP(imagePath.c_str());
+	returnedFilePath = BitsNBobs_append(basePath, "Resources\\SliderArrow.bmp");			//load arrow for sliders to texture
+	SDL_Surface *sliderArrowsurf = SDL_LoadBMP(returnedFilePath);
+	free((void*)returnedFilePath);
 	SDL_Texture *sliderArrow = SDL_CreateTextureFromSurface(ren, sliderArrowsurf);
 	SDL_FreeSurface(sliderArrowsurf);
 
-	imagePath = getResourcePath() + "\\SliderRail.bmp";								//load rail arrow slides on
-	SDL_Surface *sliderRailsurf = SDL_LoadBMP(imagePath.c_str());
+	returnedFilePath = BitsNBobs_append(basePath, "Resources\\SliderRail.bmp");				//load rail arrow slides on
+	SDL_Surface *sliderRailsurf = SDL_LoadBMP(returnedFilePath);
+	free((void*)returnedFilePath);
 	SDL_Texture *sliderRail = SDL_CreateTextureFromSurface(ren, sliderRailsurf);
 	SDL_FreeSurface(sliderRailsurf);
 

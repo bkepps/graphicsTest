@@ -18,18 +18,18 @@
     <ClInclude Include="Cleanup.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="FilePath.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainHead.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Slider.cpp">
+    <ClCompile Include="BitsNBobs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
